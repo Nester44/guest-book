@@ -1,0 +1,8 @@
+.adminMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    border: solid 2px #ef9273;
+    border-radius: 20px;
+}

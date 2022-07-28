@@ -1,0 +1,9 @@
+.messageItem {
+    border: solid 2px #ef9273;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.name {
+    margin: 0 0 20px 0;
+}
