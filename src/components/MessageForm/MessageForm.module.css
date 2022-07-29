@@ -6,6 +6,14 @@
     gap: 20px;
 }
 
+@media only screen and (max-width: 600px) {
+    .form {
+        width: 80%;
+    }
+}
+
+
+
 .error {
     color: red;
     font-size: 1em;
