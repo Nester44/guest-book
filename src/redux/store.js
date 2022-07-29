@@ -3,7 +3,7 @@ import {
   combineReducers,
   applyMiddleware }
   from 'redux';
-import appReducer from './app-reducer';
+import appReducer from './app-reducer.js';
 import ThunkMiddleware from 'redux-thunk';
 
 

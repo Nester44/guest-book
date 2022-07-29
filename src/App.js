@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import AdminMessage from './components/AdminMessage/AdminMessage';
-import MessageForm from './components/MessageForm/MessageForm';
-import MessagesList from './components/MessagesList/MessagesList';
+import AdminMessage from './components/AdminMessage/AdminMessage.jsx';
+import MessageForm from './components/MessageForm/MessageForm.jsx';
+import MessagesList from './components/MessagesList/MessagesList.jsx';
 
 function App() {
   return (

@@ -1,6 +1,11 @@
 /* eslint-disable no-case-declarations */
+import { messagesAPI } from '../api/api.js';
 const SET_MESSAGES = 'SET_MESSAGES';
 const SEND_MESSAGE = 'SEND_MESSAGE';
+
+const setMessages = (messages) => (
+  { type: SET_MESSAGES, messages }
+);
 
 export const sendMessage = (name, message) => (
   { type: SEND_MESSAGE, name, message }
@@ -33,6 +38,13 @@ const appReducer = (state = initState, action) => {
     };
   default: return state;
   }
+};
+
+export const getMessages = () => (dispatch) => {
+  messagesAPI.getMessages()
+    .then((data) => {
+      console.log(data);
+    });
 };
 
 
