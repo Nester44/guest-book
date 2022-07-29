@@ -12,11 +12,7 @@ export const sendMessage = (name, message) => (
 );
 
 const initState = {
-  messages: [
-    { id: 1, name: 'nikita', message: 'message' },
-    { id: 2, name: 'nikita', message: 'message' },
-    { id: 3, name: 'nikita', message: 'message' },
-  ]
+  messages: []
 };
 
 const appReducer = (state = initState, action) => {
@@ -43,7 +39,7 @@ const appReducer = (state = initState, action) => {
 export const getMessages = () => (dispatch) => {
   messagesAPI.getMessages()
     .then((data) => {
-      console.log(data);
+      dispatch(setMessages(data));
     });
 };
 
