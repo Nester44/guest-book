@@ -8,6 +8,7 @@
 
 .error {
     color: red;
+    font-size: 1em;
 }
 
 .form__group {
@@ -21,8 +22,7 @@
 
 .form__group span {
     position: absolute;
-    right: -7rem;
-    top: 50%;
+    right: 0;
 }
 
 .form__field {
@@ -36,6 +36,13 @@
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
+}
+
+.errorField {
+    border-width: 3px;
+    border-image: linear-gradient(to right, #ff001f, #660a00);
+
+    border-image-slice: 1;
 }
 
 .form__field::placeholder {

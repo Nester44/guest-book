@@ -7,21 +7,28 @@ import { sendMessage } from '../../redux/app-reducer';
 import { required } from '../../util/validators';
 
 
-const Input = ({ meta, input, ...props }) => (
-  <div className={styles.form__group + ' ' + styles.field}>
-    <input
-      className={styles.form__field}
-      {...input} {...props}
-      type="text" placeholder="First Name" />
-    <label className={styles.form__label}
-      htmlFor={input.name} >
-      {input.name}
-    </label>
-    {meta.error && meta.touched && <span
-      className={styles.error} >{meta.error}
-    </span>}
-  </div>
-);
+const Input = ({ meta, input, ...props }) => {
+  const isError = meta.error && meta.touched;
+  return (
+    <div className={styles.form__group + ' ' + styles.field}>
+      <input
+        className={
+          isError ?
+            styles.errorField + ' ' + styles.form__field :
+            styles.form__field
+        }
+        {...input} {...props}
+        type="text" placeholder="First Name" />
+      <label className={styles.form__label}
+        htmlFor={input.name} >
+        {input.name}
+      </label>
+      { isError && <span
+        className={styles.error} >{meta.error}
+      </span>}
+    </div>
+  );
+};
 
 const MessageForm = (props) => {
   const onSubmit = (data, form) => {
