@@ -6,7 +6,10 @@ const instance = axios.create({
 
 export const messagesAPI = {
   getMessages() {
-    return instance.get('messages')
-      .then((response) => response.data);
+    return instance.get('messages');
+  },
+
+  sendMessage(name, message) {
+    return instance.post('messages', { name, message });
   }
 };

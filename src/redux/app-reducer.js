@@ -7,7 +7,7 @@ const setMessages = (messages) => (
   { type: SET_MESSAGES, messages }
 );
 
-export const sendMessage = (name, message) => (
+export const sendMessageSuccess = (name, message) => (
   { type: SEND_MESSAGE, name, message }
 );
 
@@ -24,7 +24,7 @@ const appReducer = (state = initState, action) => {
     };
   case SEND_MESSAGE:
     const newMessage = {
-      id: Date.now(),
+      _id: Date.now(),
       name: action.name,
       message: action.message
     };
@@ -38,8 +38,19 @@ const appReducer = (state = initState, action) => {
 
 export const getMessages = () => (dispatch) => {
   messagesAPI.getMessages()
-    .then((data) => {
-      dispatch(setMessages(data));
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setMessages(response.data));
+      }
+    });
+};
+
+export const sendMessage = (messageBody) => (dispatch) => {
+  messagesAPI.sendMessage(messageBody.name, messageBody.message)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(sendMessageSuccess(messageBody.name, messageBody.message));
+      }
     });
 };
 

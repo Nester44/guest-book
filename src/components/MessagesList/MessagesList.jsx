@@ -12,12 +12,17 @@ const MessagesList = (props) => {
   }, []);
 
   const messagesElements = props.messages.map(
-    (m) => <Message key={m.id} name={m.name} message={m.message} />
+    (m) => <Message key={m._id} name={m.name} message={m.message} />
   );
   return (
     <div>
       <h2>MessagesList</h2>
-      <div className={styles.messagesContainer}>{ messagesElements }</div>
+      <div className={styles.messagesContainer}>
+        { messagesElements.length > 0 ?
+          messagesElements :
+          'There are no messages yet'
+        }
+      </div>
     </div>
   );
 };

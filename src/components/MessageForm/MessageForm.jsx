@@ -9,7 +9,7 @@ import { required } from '../../util/validators';
 
 const MessageForm = (props) => {
   const onSubmit = (data, form) => {
-    props.sendMessage(data.name, data.message);
+    props.sendMessage(data);
     form.reset();
   };
   return (
