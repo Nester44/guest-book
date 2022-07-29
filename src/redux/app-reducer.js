@@ -1,10 +1,15 @@
 /* eslint-disable no-case-declarations */
 import { messagesAPI } from '../api/api.js';
+
 const SET_MESSAGES = 'SET_MESSAGES';
 const SEND_MESSAGE = 'SEND_MESSAGE';
+const SET_INITIALIZATION = 'SET_INITIALIZATION';
 
 const setMessages = (messages) => (
   { type: SET_MESSAGES, messages }
+);
+const setInitialization = () => (
+  { type: SET_INITIALIZATION }
 );
 
 export const sendMessageSuccess = (name, message) => (
@@ -12,7 +17,8 @@ export const sendMessageSuccess = (name, message) => (
 );
 
 const initState = {
-  messages: []
+  messages: [],
+  isInitialized: false,
 };
 
 const appReducer = (state = initState, action) => {
@@ -23,14 +29,10 @@ const appReducer = (state = initState, action) => {
       messages: [...action.messages],
     };
   case SEND_MESSAGE:
-    const newMessage = {
-      _id: Date.now(),
-      name: action.name,
-      message: action.message
-    };
+  case SET_INITIALIZATION:
     return {
       ...state,
-      messages: [...state.messages, newMessage],
+      isInitialized: true,
     };
   default: return state;
   }
@@ -41,6 +43,7 @@ export const getMessages = () => (dispatch) => {
     .then((response) => {
       if (response.status === 200) {
         dispatch(setMessages(response.data));
+        dispatch(setInitialization());
       }
     });
 };

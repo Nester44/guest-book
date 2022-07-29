@@ -4,12 +4,15 @@ import { connect } from 'react-redux';
 import Message from './Message/Message';
 import styles from './MessagesList.module.css';
 import { getMessages } from '../../redux/app-reducer';
+import Loader from '../Loader/Loader';
 
 
 const MessagesList = (props) => {
   useEffect(() => {
     props.getMessages();
   }, []);
+
+  if (!props.isInitialized) return <Loader />;
 
   const messagesElements = props.messages.map(
     (m) => <Message key={m._id} name={m.name} message={m.message} />
@@ -29,6 +32,7 @@ const MessagesList = (props) => {
 
 const mapStateToProps = (state) => ({
   messages: state.app.messages,
+  isInitialized: state.app.isInitialized,
 });
 
 export default connect(mapStateToProps, { getMessages })(MessagesList);

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Header from './components/AdminMessage/Header.jsx';
+import Header from './components/Header/Header.jsx';
 import MessageForm from './components/MessageForm/MessageForm.jsx';
 import MessagesList from './components/MessagesList/MessagesList.jsx';
 
