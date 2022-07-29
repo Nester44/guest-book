@@ -15,9 +15,9 @@ const MessagesList = (props) => {
     (m) => <Message key={m._id} name={m.name} message={m.message} />
   );
   return (
-    <div>
-      <h2>MessagesList</h2>
-      <div className={styles.messagesContainer}>
+    <div className={styles.messageListContainer} >
+      <h2 className={styles.title} >MessagesList</h2>
+      <div className={styles.messagesList}>
         { messagesElements.length > 0 ?
           messagesElements :
           'There are no messages yet'

@@ -1,5 +1,13 @@
-.messagesContainer {
+.messagesList {
     display: flex;
     flex-direction: column;
-    gap: 2vh;
+    gap: 2rem;
+}
+
+.messageListContainer {
+    margin-top: 2rem;
+}
+
+.messageListContainer .title {
+    margin-bottom: 2rem;
 }

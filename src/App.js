@@ -1,15 +1,17 @@
 import React from 'react';
 import './App.css';
-import AdminMessage from './components/AdminMessage/AdminMessage.jsx';
+import Header from './components/AdminMessage/Header.jsx';
 import MessageForm from './components/MessageForm/MessageForm.jsx';
 import MessagesList from './components/MessagesList/MessagesList.jsx';
 
 function App() {
   return (
     <div className="App">
-      <AdminMessage />
-      <MessageForm />
-      <MessagesList />
+      <Header />
+      <div className="AppWrapper">
+        <MessageForm />
+        <MessagesList />
+      </div>
     </div>
   );
 }
