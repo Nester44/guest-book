@@ -7,37 +7,53 @@ import { sendMessage } from '../../redux/app-reducer';
 import { required } from '../../util/validators';
 
 
+const Input = ({ meta, input, ...props }) => (
+  <div className={styles.form__group + ' ' + styles.field}>
+    <input
+      className={styles.form__field}
+      {...input} {...props}
+      type="text" placeholder="First Name" />
+    <label className={styles.form__label}
+      htmlFor={input.name} >
+      {input.name}
+    </label>
+    {meta.error && meta.touched && <span
+      className={styles.error} >{meta.error}
+    </span>}
+  </div>
+);
+
 const MessageForm = (props) => {
   const onSubmit = (data, form) => {
     props.sendMessage(data);
-    form.reset();
+    form.restart();
+
   };
   return (
     <div>
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit }) => (
+        render={({ handleSubmit, invalid }) => (
           <form className={styles.form} onSubmit={ handleSubmit }>
             <Field
               validate= {required }
               name='name'
               placeholder='Enter your name'
-              component={'input'}
+              component={Input}
+              autoComplete='off'
+
             />
             <Field
+              autoComplete='off'
               validate= {required }
               name='message'
               placeholder='Enter your message'
-              component={'input'}
-              render={(input, meta) => (
-                <div>
-                  <label>Name</label>
-                  <input {...input} type="text" placeholder="First Name" />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
+              component={Input}
             />
-            <button type='submit'>Send message</button>
+            <button className={styles.submitBtn}
+              disabled={ invalid }
+              type='submit'>Send message
+            </button>
           </form>
         )}
       />
