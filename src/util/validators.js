@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 
-const htmlRegEx = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g;
-const linkRegEx = /^[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
-const HTTPRegEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
+const htmlRegEx = /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/;
+const linkRegEx = /w*? ?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&=]*?) ?\w*?/;
 
 export const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
@@ -12,7 +11,7 @@ export const notHTML = (value) => (htmlRegEx.test(value) ?
   undefined
 );
 
-export const notLink = (value) => (linkRegEx.test(value) || HTTPRegEx.test(value) ?
+export const notLink = (value) => (linkRegEx.test(value) ?
   'Name can\'t consist links' :
   undefined
 );

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 import { connect } from 'react-redux';
 import styles from './MessageForm.module.css';
@@ -15,19 +15,24 @@ const nameValidators = composeValidators(required, notHTML, notLink);
 const messageValidators = composeValidators(required, notHTML);
 
 const Input = ({ meta, input, ...props }) => {
-  const isError = meta.error && meta.touched;
+  const isError = meta.error && meta.modified;
   return (
-    <div dataError={meta.error || ' '}
-      className={styles.form__group + ' ' + styles.field}
-    >
+    <div className={styles.form__group}>
       <input
-        className={styles.form__field}
+        className={
+          isError ?
+            styles.errorField + ' ' + styles.form__field :
+            styles.form__field
+        }
         {...input} {...props}
         type="text" placeholder="First Name" />
       <label className={styles.form__label}
         htmlFor={input.name} >
         {input.name}
       </label>
+      { isError && <span
+        className={styles.error} >{meta.error}
+      </span>}
     </div>
   );
 };
@@ -37,6 +42,20 @@ const MessageForm = (props) => {
     props.sendMessage(data);
     form.restart();
   };
+
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === 'Enter') {
+        if (event.metaKey)
+          onSubmit();
+      }
+    };
+    document.addEventListener('keydown', listener);
+    return () => {
+      document.removeEventListener('keydown', listener);
+    };
+  }, []);
+
   return (
     <div>
       <Form

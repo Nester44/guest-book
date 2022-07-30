@@ -15,8 +15,8 @@
 
 
 .error {
-    color: red;
-    font-size: 1em;
+    color: #ff001f;
+    font-size: 0.6em;
 }
 
 .form__group {
@@ -30,7 +30,7 @@
 
 .form__group span {
     position: absolute;
-    right: 0;
+    bottom: -1.5em;
 }
 
 .form__field {
@@ -47,6 +47,7 @@
 }
 
 .errorField {
+    color: #ff001f;
     border-width: 3px;
     border-image: linear-gradient(to right, #ff001f, #660a00);
 
@@ -101,6 +102,7 @@
 }
 
 .submitBtn {
+    margin-top: 30px;
     padding: 1rem;
     background: linear-gradient(to right, #11998e, #38ef7d);
     background-size: 400% 400%;

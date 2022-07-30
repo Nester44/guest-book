@@ -9,6 +9,7 @@
     border: solid 5px transparent;
     border-radius: 1em;
     padding: 20px;
+
 }
 
 .messageItem::before {
@@ -20,9 +21,7 @@
     left: 0;
     z-index: -1;
     margin: -5px;
-    /* !importanté */
     border-radius: inherit;
-    /* !importanté */
     background: linear-gradient(to right, #11998e, #38ef7d);
 }
 
