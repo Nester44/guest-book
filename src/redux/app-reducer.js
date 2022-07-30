@@ -4,6 +4,11 @@ import { messagesAPI } from '../api/api.js';
 const SET_MESSAGES = 'SET_MESSAGES';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 const SET_INITIALIZATION = 'SET_INITIALIZATION';
+const SET_BAD_RESPONSE = 'SET_BAD_RESPONSE';
+
+const setBadResponse = () => (
+  { type: SET_BAD_RESPONSE }
+);
 
 const setMessages = (messages) => (
   { type: SET_MESSAGES, messages }
@@ -19,6 +24,7 @@ export const sendMessageSuccess = (name, message, id) => (
 const initState = {
   messages: [],
   isInitialized: false,
+  serverProblem: false,
 };
 
 const appReducer = (state = initState, action) => {
@@ -43,6 +49,11 @@ const appReducer = (state = initState, action) => {
       ...state,
       isInitialized: true,
     };
+  case SET_BAD_RESPONSE:
+    return {
+      ...state,
+      serverProblem: true,
+    };
   default: return state;
   }
 };
@@ -54,6 +65,9 @@ export const getMessages = () => (dispatch) => {
         dispatch(setMessages(response.data));
         dispatch(setInitialization());
       }
+    })
+    .catch(() => {
+      dispatch(setBadResponse());
     });
 };
 
@@ -61,9 +75,12 @@ export const sendMessage = (messageBody) => (dispatch) => {
   messagesAPI.sendMessage(messageBody.name, messageBody.message)
     .then((response) => {
       if (response.status === 200) {
-        const { name, message, id } = response.data;
-        dispatch(sendMessageSuccess(name, message, id));
+        const { name, message, _id } = response.data;
+        dispatch(sendMessageSuccess(name, message, _id));
       }
+    })
+    .catch(() => {
+      dispatch(setBadResponse());
     });
 };
 
