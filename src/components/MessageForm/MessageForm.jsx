@@ -4,28 +4,30 @@ import { Form, Field } from 'react-final-form';
 import { connect } from 'react-redux';
 import styles from './MessageForm.module.css';
 import { sendMessage } from '../../redux/app-reducer';
-import { required } from '../../util/validators';
+import {
+  required,
+  notHTML,
+  notLink,
+  composeValidators
+} from '../../util/validators';
 
+const nameValidators = composeValidators(required, notHTML, notLink);
+const messageValidators = composeValidators(required, notHTML);
 
 const Input = ({ meta, input, ...props }) => {
   const isError = meta.error && meta.touched;
   return (
-    <div className={styles.form__group + ' ' + styles.field}>
+    <div dataError={meta.error || ' '}
+      className={styles.form__group + ' ' + styles.field}
+    >
       <input
-        className={
-          isError ?
-            styles.errorField + ' ' + styles.form__field :
-            styles.form__field
-        }
+        className={styles.form__field}
         {...input} {...props}
         type="text" placeholder="First Name" />
       <label className={styles.form__label}
         htmlFor={input.name} >
         {input.name}
       </label>
-      { isError && <span
-        className={styles.error} >{meta.error}
-      </span>}
     </div>
   );
 };
@@ -34,7 +36,6 @@ const MessageForm = (props) => {
   const onSubmit = (data, form) => {
     props.sendMessage(data);
     form.restart();
-
   };
   return (
     <div>
@@ -43,7 +44,7 @@ const MessageForm = (props) => {
         render={({ handleSubmit, invalid }) => (
           <form className={styles.form} onSubmit={ handleSubmit }>
             <Field
-              validate= {required }
+              validate= {nameValidators }
               name='name'
               placeholder='Enter your name'
               component={Input}
@@ -52,7 +53,7 @@ const MessageForm = (props) => {
             />
             <Field
               autoComplete='off'
-              validate= {required }
+              validate= {messageValidators }
               name='message'
               placeholder='Enter your message'
               component={Input}

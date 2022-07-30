@@ -12,8 +12,8 @@ const setInitialization = () => (
   { type: SET_INITIALIZATION }
 );
 
-export const sendMessageSuccess = (name, message) => (
-  { type: SEND_MESSAGE, name, message }
+export const sendMessageSuccess = (name, message, id) => (
+  { type: SEND_MESSAGE, name, message, id }
 );
 
 const initState = {
@@ -26,9 +26,18 @@ const appReducer = (state = initState, action) => {
   case SET_MESSAGES:
     return {
       ...state,
-      messages: [...action.messages],
+      messages: [...action.messages.reverse()],
     };
   case SEND_MESSAGE:
+    const newMessage = {
+      _id: action.id,
+      name: action.name,
+      message: action.message,
+    };
+    return {
+      ...state,
+      messages: [newMessage, ...state.messages],
+    };
   case SET_INITIALIZATION:
     return {
       ...state,
@@ -52,7 +61,8 @@ export const sendMessage = (messageBody) => (dispatch) => {
   messagesAPI.sendMessage(messageBody.name, messageBody.message)
     .then((response) => {
       if (response.status === 200) {
-        dispatch(sendMessageSuccess(messageBody.name, messageBody.message));
+        const { name, message, id } = response.data;
+        dispatch(sendMessageSuccess(name, message, id));
       }
     });
 };
